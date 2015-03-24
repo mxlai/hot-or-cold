@@ -25,11 +25,24 @@ $(document).ready(function(){
   	/*--- Generate a random number ---*/
   	function randomNumber() {
   		var number = Math.floor((Math.random() * 100) + 1);
-  		console.log(number);
+  		console.log("Random Number: " + number);
+  	}
+
+  	/*--- Submit user guesses ---*/
+  	$(".button").click(function(event) {
+  		userNumber();
+	});
+
+  	function userNumber() {
+  		var guess = $("#userGuess").val();
+  		console.log("User Guessed: " + guess)
+  		event.preventDefault();
   	}
 
   	/*Math.abs for absolute value
   	userGuess - computerNumber > 10...*/
+
+  	/*--- List previously guessed numbers ---*/
 });
 
 
