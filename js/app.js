@@ -17,13 +17,15 @@ $(document).ready(function(){
   	function newGame() {
   		randomNumber();
   		$("#feedback").html("<h3>Make your Guess!</h3>");
+      guessCount = 0;
+      $('#count').text(guessCount);
   	}
 
   	/*--- Click to start a new game ---*/
   	$(".new").click(function(event) {
   		console.log("New Game!");
-		newGame();	
-	});
+		  newGame();	
+	  });
 
   	/*--- Generate a random number ---*/
   	function randomNumber() {
@@ -35,8 +37,7 @@ $(document).ready(function(){
   	$(".button").click(function(event) {
   		userNumber();
   		$("#userGuess").val("");
-  		guessCount();
-	});
+	  });
 
   	/*--- User guess function ---*/
   	function userNumber() {
@@ -45,6 +46,10 @@ $(document).ready(function(){
 
   		/*--- Add user guesses to list ---*/
   		$("#guessList").append("<li>" + guess + "</li>");
+
+      guessCount++;
+      guessCounter(guessCount);
+
   		event.preventDefault();
 
   		/*--- User feedback ---*/
@@ -58,7 +63,7 @@ $(document).ready(function(){
   			$("#feedback").html("<h3>Is it getting hot in here?</h3>");
   		}
   		else if (Math.abs(number - guess) <= 25) {
-  			$("#feedback").html("<h3>You're on the right track!</h3>");
+  			$("#feedback").html("<h3>Even warmer...</h3>");
   		}
   		else if (Math.abs(number - guess) <= 40) {
   			$("#feedback").html("<h3>Getting warm...</h3>");
@@ -76,22 +81,24 @@ $(document).ready(function(){
   		/* Switch case */
   	}
 
-  	function guessCount() {
-  		var count = $("#count").val();
-  		$("#count").val(count + 1);
-  	}
-
-  	/*--- Counter 
-  	set the value using the val function
+    /*--- Guess counter function ---*/
+    function guessCounter(count){
+        $("#count").text(guessCount);
+    }
+ 
+  	/* set the value using the val function
   	current value + 1
 
+    function guessCount() {
+      $("#count").text(guessAttempts)
+    }
+
+    or
 
   	$("#count").val($("#count").val() + 1); ---*/
 
   	/* Comparisons
   	define global variable referring to previous guesses*/
-
-
   	
 });
 
