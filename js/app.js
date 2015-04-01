@@ -10,11 +10,11 @@ $(document).ready(function(){
     $(".overlay").fadeOut(1000);
   });
 
-  /*--- Define global variables ---*/
+  /*--- Global variables ---*/
   var number;
 
   /*--- New game function ---*/
-  function newGame() {
+  function newGame(){
     $("#feedback").html("<h3>Make your Guess!</h3>");
     randomNumber();
     guessCount = 0;
@@ -23,7 +23,7 @@ $(document).ready(function(){
   }
 
   /*--- Random number function ---*/
-  function randomNumber() {
+  function randomNumber(){
     number = Math.floor((Math.random() * 100) + 1);
     console.log("Random Number: " + number);
   }
@@ -34,19 +34,35 @@ $(document).ready(function(){
   }
 
   /*--- Click to start a new game ---*/
-  $(".new").click(function(event) {
+  $(".new").click(function(event){
     console.log("New Game!");
     newGame();	
   });
 
-  /*--- Submit user guesses ---*/
-  $(".button").click(function(event) {
-    userNumber();
+  /*--- Submit user guess ---*/
+  $(".button").click(function(event){
+    checkNumber();
     $("#userGuess").val("");
   });
 
+  /*--- Validate user guess function ---*/
+  function checkNumber(){
+    var guess = $("#userGuess").val();
+    if (isNaN(guess)){
+      $("#feedback").html("<h3>Numbers only please!</h3>");
+    } else if (guess === ""){
+      $("#feedback").html("<h3>Please enter a number!</h3>");
+    } else if (guess === " "){
+      $("#feedback").html("<h3>Please enter a number!</h3>");
+    } else if (guess < 0 || guess > 100){
+      $("#feedback").html("<h3>Enter a number between 1 and 100!</h3>");
+    } else {
+      userNumber();
+    }
+  }
+
   /*--- User guess function ---*/
-  function userNumber() {
+  function userNumber(){
     var guess = $("#userGuess").val();
     console.log("User Guessed: " + guess);
 
@@ -61,28 +77,19 @@ $(document).ready(function(){
     event.preventDefault();
 
     /*--- User feedback ---*/
-    if (number - guess == 0) {
+    if (number - guess == 0){
       $("#feedback").html("<h3>You won!</h3>");
-    }
-    else if (Math.abs(number - guess) <= 5) {
-      $("#feedback").html("<h3>You're on fire!</h3>");
-    }
-    else if (Math.abs(number - guess) <= 10) {
-      $("#feedback").html("<h3>Is it getting hot in here?</h3>");
-    }
-    else if (Math.abs(number - guess) <= 25) {
-      $("#feedback").html("<h3>Even warmer...</h3>");
-    }
-    else if (Math.abs(number - guess) <= 40) {
+    } else if (Math.abs(number - guess) <= 10){
+      $("#feedback").html("<h3>Getting hot!</h3>");
+    } else if (Math.abs(number - guess) <= 25){
+      $("#feedback").html("<h3>Warmer...</h3>");
+    } else if (Math.abs(number - guess) <= 40){
       $("#feedback").html("<h3>Getting warm...</h3>");
-    }
-    else if (Math.abs(number - guess) <= 50) {
+    } else if (Math.abs(number - guess) <= 50){
       $("#feedback").html("<h3>Cold.</h3>");
-    }
-    else if (Math.abs(number - guess) <= 75) {
+    } else if (Math.abs(number - guess) <= 75){
       $("#feedback").html("<h3>Ice cold.</h3>");
-    }
-    else {
+    } else {
       $("#feedback").html("<h3>Not even close.<h3>");
     }
   }
