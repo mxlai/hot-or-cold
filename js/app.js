@@ -51,9 +51,9 @@ $(document).ready(function(){
     if (isNaN(guess)){
       $("#feedback").html("<h3>Numbers only please!</h3>");
     } else if (guess === ""){
-      $("#feedback").html("<h3>Please enter a number!</h3>");
+      $("#feedback").html("<h3>Make your Guess!</h3>");
     } else if (guess === " "){
-      $("#feedback").html("<h3>Please enter a number!</h3>");
+      $("#feedback").html("<h3>Make your Guess!</h3>");
     } else if (guess < 0 || guess > 100){
       $("#feedback").html("<h3>Enter a number between 1 and 100!</h3>");
     } else {
@@ -64,6 +64,7 @@ $(document).ready(function(){
   /*--- User guess function ---*/
   function userNumber(){
     var guess = $("#userGuess").val();
+    var previousGuess = Math.abs(number - guess);
     console.log("User Guessed: " + guess);
 
     /*--- Add user guesses to list ---*/
@@ -79,35 +80,22 @@ $(document).ready(function(){
     /*--- User feedback ---*/
     if (number - guess == 0){
       $("#feedback").html("<h3>You won!</h3>");
-    } else if (Math.abs(number - guess) <= 10){
-      $("#feedback").html("<h3>Getting hot!</h3>");
-    } else if (Math.abs(number - guess) <= 25){
-      $("#feedback").html("<h3>Warmer...</h3>");
-    } else if (Math.abs(number - guess) <= 40){
-      $("#feedback").html("<h3>Getting warm...</h3>");
-    } else if (Math.abs(number - guess) <= 50){
-      $("#feedback").html("<h3>Cold.</h3>");
-    } else if (Math.abs(number - guess) <= 75){
-      $("#feedback").html("<h3>Ice cold.</h3>");
+    } else if (Math.abs(number - guess) <= 25 ) {
+      $("#feedback").html("<h3>You're getting hot!</h3>");
+      if (Math.abs(previousGuess - guess) < 25) {
+        $("#feedback").html("<h3>Keep going!</h3>");
+      }
+      else {
+        $("#feedback").html("<h3>You're going the wrong way!</h3>");
+      }
     } else {
-      $("#feedback").html("<h3>Not even close.<h3>");
+      if (previousGuess >= guess) {
+        $("#feedback").html("<h3>You're getting warmer...</h3>");
+      } else {
+        $("#feedback").html("<h3>You're getting colder...</h3>");
+      }
     }
   }
-
-  /* set the value using the val function
-  current value + 1
-
-  function guessCount() {
-  $("#count").text(guessAttempts)
-  }
-
-  or
-
-  $("#count").val($("#count").val() + 1); ---*/
-
-  /* Comparisons
-  define global variable referring to previous guesses*/
-
 });
 
 
