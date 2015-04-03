@@ -81,6 +81,7 @@ $(document).ready(function(){
       $("#feedback").html("<h3>You won!</h3>");
     }
 
+    /*--- First guess feedback ---*/
     else if (!previousGuess) {
       if (Math.abs(number - guess) <= 5) {
         $("#feedback").html("<h3>You're on fire!</h3>");
@@ -105,6 +106,7 @@ $(document).ready(function(){
       }
     }
 
+    /*--- Subsequent guesses ---*/
     else {
       if (Math.abs(previousGuess - number) > (Math.abs(number - guess))) {
         $("#feedback").html("<h3>You're getting warmer!</h3>");
@@ -112,7 +114,6 @@ $(document).ready(function(){
         $("#feedback").html("<h3>You're getting colder!</h3>");
       }
     }
-
     previousGuess = guess;
   }
 });
